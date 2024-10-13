@@ -188,7 +188,7 @@ const CraftDetails = ({ craft }) => {
             ) : (
                 <div className='craft-info-container' >
                     {craft.imageURL && (
-                        <img src={`${baseURL}/public/uploads/${craft.imageURL}`} alt='craft' onClick={ handleNavigate }/>
+                        <img src={craft.imageURL} alt='craft' onClick={ handleNavigate }/>
                     )}
 
                     <div className='craft-top-info-container'>

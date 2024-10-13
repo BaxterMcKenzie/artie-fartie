@@ -98,7 +98,7 @@ const SinglePage = () => {
       <div className='bottom-single-craft-container'>
         <div className='left-single-craft-container'>
           {craft.imageURL && (
-            <img src={`${baseURL}/public/uploads/${craft.imageURL}`} alt='craft' />
+            <img src={craft.imageURL} alt='craft' />
           )}
 
           <div className='bottom-left-single-craft-container'>

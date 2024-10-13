@@ -1,4 +1,5 @@
 
+const { cloudinary } = require('../config/cloudinary')
 const Craft = require ('../models/craftModel')
 
 const mongoose = require('mongoose')
@@ -53,10 +54,10 @@ const getCraft = async ( req, res) => {
 const createCraft = async ( req, res) => {
     const { title, type, description, price, notForSale, anonymous, material, user_id} = req.body
 
-    const imageFilename = req.file ? req.file.filename : null;
+    const imageURL = req.file ? req.file.path : null;
 
     try {
-        const craft = await Craft.create({ title, type, description, price, notForSale, anonymous, material, user_id, imageURL: imageFilename})
+        const craft = await Craft.create({ title, type, description, price, notForSale, anonymous, material, user_id, imageURL: imageURL})
         res.status(200).json(craft)
     } 
     catch (error) {
@@ -77,6 +78,15 @@ const deleteCraft = async ( req, res) => {
 
     if(!craft) {
         return res.status(404).json({error: 'No such Craft'})
+    }
+
+    if (craft.image) {
+        // Extract the part after 'upload/' and before the file extension
+        const urlParts = craft.image.split('/');
+        const versionIndex = urlParts.findIndex(part => part.startsWith('v')); // Find the version segment
+        const publicId = urlParts.slice(versionIndex + 1).join('/').split('.')[0]; // Extract public ID after the version
+    
+        await cloudinary.uploader.destroy(publicId);
     }
 
     res.status(200).json(craft)
