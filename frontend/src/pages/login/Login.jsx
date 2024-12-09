@@ -7,8 +7,8 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const { login, error, isLoading, isAuthenticated } = useLogin(); // Assuming isAuthenticated is provided by useLogin
-    
+    const { login, error, isLoading } = useLogin(); // Use error from the hook directly
+
     // States for different screen sizes
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1350);
     const [isTablet, setIsTablet] = useState(window.innerWidth <= 992);
@@ -33,6 +33,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validate email and password presence
         if (!email || !password) {
             setErrorMessage('Email and password are required.');
             return;
@@ -45,22 +46,23 @@ const Login = () => {
             return;
         }
 
+        // Predefined error message for login credentials
+        const predefinedMessage = '\nEmail: user@gmail.com\nPassword: Password1234%';
+
+        // Call login and wait for the response
         await login(email, password);
 
         if (!error) {
             navigate('/');
         } else {
-            setErrorMessage(error);
+            // If the error occurs, display the predefined credentials
+            setErrorMessage(predefinedMessage);
         }
     };
 
     const handleSkip = () => {
-        // Check if user is authenticated before navigating to home page
-        if (isAuthenticated) {
-            navigate('/');
-        } else {
-            setErrorMessage('You must be logged in to skip.');
-        }
+        // Navigate to home page
+        navigate('/');
     };
 
     return (
@@ -112,11 +114,24 @@ const Login = () => {
 
                         <div className='login-button'>
                             <button className='add-post-btn' disabled={isLoading}>Login</button>
-                            {error && <div className="error">{error}</div>}
+                            {error && (
+                                <div
+                                    className="error-message"
+                                    dangerouslySetInnerHTML={{
+                                        __html: error.replace(/\n/g, '<br />') // Add line breaks here
+                                    }}
+                                />
+                            )}
                         </div>
 
                         {/* Display error message */}
-                        {errorMessage && <div className='error-message'>{errorMessage}</div>}
+                        {errorMessage && (
+                            <div className='error-message'>
+                                {errorMessage.split('\n').map((line, index) => (
+                                    <div key={index}>{line}</div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </form>

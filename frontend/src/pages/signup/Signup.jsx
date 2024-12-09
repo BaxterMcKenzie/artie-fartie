@@ -96,8 +96,15 @@ const Signup = () => {
                                 Sign up
                             </button>
                         </div>
-                        {/* Display error message */}
-                        {error && <div className='error-message'>{error}</div>}
+                        {/* Display error message with line breaks */}
+                        {error && (
+                            <div
+                                className='error-message'
+                                dangerouslySetInnerHTML={{
+                                    __html: error.replace(/\n/g, '<br />') // Add line breaks here
+                                }}
+                            />
+                        )}
                     </div>
                 </div>
             </form>

@@ -42,16 +42,55 @@
 
 import { useState } from "react";
 import { useAuthContext } from './useAuthContext';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export const useSignup = () => {
-    const [error, setError] = useState('Signups are disabled for display purposes.'); // Initialize with error message
-    const [isLoading, setIsLoading] = useState(false);  // Default to false to avoid loading state issues
+    const [error, setError] = useState("\nEmail: user@gmail.com\nPassword: Password1234%");
+    const [isLoading, setIsLoading] = useState(false);  
     const { dispatch } = useAuthContext();
+    const navigate = useNavigate(); // Initialize navigate
 
     const signup = async (email, password) => {
-        // Ensure signup is blocked without further interaction
-        setIsLoading(false);
+        setIsLoading(true);
+        setError(null);
+
+        // Predefined credentials
+        const validEmail = "user@gmail.com";
+        const validPassword = "Password1234%";
+
+        // Regex for email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        try {
+            // Validate email format
+            if (!emailRegex.test(email)) {
+                throw new Error("Invalid email format.");
+            }
+
+            // Validate credentials
+            if (email !== validEmail || password !== validPassword) {
+                throw new Error(
+                    "Invalid credentials. Use the following:\nEmail: user@gmail.com\nPassword: Password1234%"
+                );
+            }
+
+            // Simulate login if credentials match
+            const user = { email }; // Mock user data
+            localStorage.setItem("user", JSON.stringify(user));
+            dispatch({ type: "LOGIN", payload: user });
+
+            setIsLoading(false);
+
+            // Redirect to home page
+            navigate("/");
+
+        } catch (err) {
+            setError(err.message);
+            setIsLoading(false);
+        }
     };
 
+    // Return the signup function, loading state, and error state
     return { signup, isLoading, error };
 };
+
