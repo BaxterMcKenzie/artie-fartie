@@ -185,7 +185,7 @@ const SinglePage = () => {
                 ))}
               </div>
             </div>
-            <img className='bottom-comments' src='../../../public/images/bottom-comments.webp' alt="bottom comment border" />
+            <img className='bottom-comments' src='../../../images/bottom-comments.webp' alt="bottom comment border" />
           </>
         )}
       </div>
