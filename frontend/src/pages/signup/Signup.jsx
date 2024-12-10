@@ -52,7 +52,7 @@ const Signup = () => {
         <div className='login-body'>
             <img
                 className='login-header'
-                src='../../../public/images/signup-title-img.webp'
+                src='../../../images/signup-title-img.webp'
                 alt='Signup Image'
             />
             <form className='login' onSubmit={handleSubmit}>
@@ -61,12 +61,12 @@ const Signup = () => {
                         className='card-image'
                         src={
                             isPhone
-                                ? '../../../public/images/signup-login-phone.png'
+                                ? '../../../images/signup-login-phone.png'
                                 : isTablet
-                                ? '../../../public/images/signup-login-tablet.png'
+                                ? '../../..//images/signup-login-tablet.png'
                                 : isSmallScreen
-                                ? '../../../public/images/signup-login-small-screen.png'
-                                : '../../../public/images/signup-login.png'
+                                ? '../../../images/signup-login-small-screen.png'
+                                : '../../../images/signup-login.png'
                         }
                         alt='card-background'
                     />

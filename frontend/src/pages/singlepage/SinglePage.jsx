@@ -146,10 +146,10 @@ const SinglePage = () => {
                 <img 
                   className='comments-postit' 
                   src={isSmallPhone 
-                    ? '../../../public/images/comment-postit-phone.webp' 
+                    ? '../../../images/comment-postit-phone.webp' 
                     : isPhone 
-                    ? '../../../public/images/comment-postit-small-screen.webp' 
-                    : '../../../public/images/comment-postit.webp'}
+                    ? '../../../images/comment-postit-small-screen.webp' 
+                    : '../../../images/comment-postit.webp'}
                   alt='comment-postit' 
                 />
                 <label>Add Comment</label>
@@ -170,10 +170,10 @@ const SinglePage = () => {
                     <img 
                       className='comments-postit' 
                       src={isSmallPhone 
-                        ? '../../../public/images/comment-postit-phone.webp' 
+                        ? '../../../images/comment-postit-phone.webp' 
                         : isPhone 
-                        ? '../../../public/images/comment-postit-small-screen.webp' 
-                        : '../../../public/images/comment-postit.webp'}
+                        ? '../../../images/comment-postit-small-screen.webp' 
+                        : '../../../images/comment-postit.webp'}
                       alt='comment-postit' 
                     />
                     <h5>{getEmailCharactersBeforeAtSymbol(comment.user_id)}</h5>
